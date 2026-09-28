@@ -17,7 +17,7 @@
   <meta property="og:description" content="Learn about Cate, the founder of NILE VA Services, and her journey building a creator-first virtual assistant business." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://nile-va.com/founder.html" />
-  <meta property="og:image" content="https://nile-va.com/assets/team/founder.png" />
+  <meta property="og:image" content="https://nile-va.com/assets/team/founder-1200.webp" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Meet the Founder | NILE VA Services" />
   <meta name="twitter:description" content="Learn about Cate, the founder of NILE VA Services, and her journey building a creator-first virtual assistant business." />
@@ -55,7 +55,7 @@
           "@type": "Person",
           "name": "Cate",
           "description": "Founder of NILE VA Services, providing creator-first virtual assistant support for UGC creators and influencers.",
-          "image": "https://nile-va.com/assets/team/founder.png",
+           "image": "https://nile-va.com/assets/team/founder-1254.webp",
           "worksFor": {
             "@type": "Organization",
             "name": "NILE VA Services",
@@ -90,6 +90,9 @@
 
   <!-- Styles -->
   <link rel="preload" href="css/style.css" as="style" />
+  <link rel="preload" href="assets/team/founder-800.avif" as="image" type="image/avif" />
+  <link rel="preload" href="assets/team/founder-800.webp" as="image" type="image/webp" />
+  <link rel="preload" href="assets/team/founder.png" as="image" type="image/png" />
   <link rel="stylesheet" href="css/style.css">
 
   <!-- Scripts -->
@@ -149,7 +152,11 @@
         </div>
         <div class="founder-grid">
           <div class="founder-image">
-            <img src="assets/team/founder.png" alt="Cate, founder of NILE VA Services" width="600" height="600" loading="lazy" decoding="async" fetchpriority="high" />
+            <picture>
+              <source type="image/avif" srcset="assets/team/founder-400.avif 400w, assets/team/founder-800.avif 800w, assets/team/founder-1254.avif 1254w" sizes="(max-width: 768px) 320px, (max-width: 1200px) min(40vw, 400px), 400px" />
+              <source type="image/webp" srcset="assets/team/founder-400.webp 400w, assets/team/founder-800.webp 800w, assets/team/founder-1254.webp 1254w" sizes="(max-width: 768px) 320px, (max-width: 1200px) min(40vw, 400px), 400px" />
+              <img src="assets/team/founder-1254.webp" alt="Cate, founder of NILE VA Services" width="1254" height="1254" decoding="async" fetchpriority="high" />
+            </picture>
           </div>
           <div class="founder-content">
             <p>Cate’s journey as a UGC VA started with a decision to step away from the traditional 8-5 when she got her son. She wanted to do something that would give her more freedom and flexibility.</p>

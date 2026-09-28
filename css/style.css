@@ -1030,6 +1030,7 @@ a:hover {
   .founder-image {
     max-width: 400px;
     margin: 0 auto;
+    aspect-ratio: 1 / 1;
   }
   .footer-grid {
     grid-template-columns: 1fr 1fr;
@@ -1183,5 +1184,6 @@ a:hover {
   .founder-image {
     max-width: 320px;
     margin: 0 auto;
+    aspect-ratio: 1 / 1;
   }
 }
