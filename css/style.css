@@ -222,7 +222,11 @@ a:hover {
   cursor: pointer;
   background: none;
   border: none;
-  padding: 5px;
+  padding: 10px;
+  width: 44px;
+  height: 44px;
+  justify-content: center;
+  align-items: center;
 }
 .hamburger span {
   width: 26px;
@@ -327,9 +331,11 @@ a:hover {
 .hero-image .card .big-icon {
   font-size: 4rem;
 }
-.hero-image .card h3 {
+.hero-image .card .card-title {
   margin-top: 1rem;
   color: #1a1a2e;
+  font-size: 1.5rem;
+  font-weight: 700;
 }
 .hero-image .card .mini-tags {
   display: flex;
@@ -365,7 +371,6 @@ a:hover {
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.06);
   transition: transform 0.3s cubic-bezier(.2, .9, .2, 1), box-shadow 0.3s ease;
   transform-style: preserve-3d;
-  will-change: transform;
   isolation: isolate;
   --tilt-x: 0deg;
   --tilt-y: 0deg;
@@ -381,7 +386,7 @@ a:hover {
   transform: perspective(1000px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateY(-6px);
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
 }
-/* Shimmer */
+/* Shimmer - using background-position for better performance */
 .service-card::before,
 .support-item::before,
 .stat-card::before,
@@ -390,10 +395,11 @@ a:hover {
   content: '';
   position: absolute;
   top: 0;
-  left: -120%;
-  width: 240%;
+  left: 0;
+  width: 100%;
   height: 100%;
   background: linear-gradient(115deg, transparent 28%, rgba(255, 255, 255, 0.15) 45%, rgba(255, 255, 255, 0.30) 50%, rgba(255, 255, 255, 0.15) 55%, transparent 72%);
+  background-size: 250% 100%;
   transform: skewX(-20deg);
   animation: shimmer 7s infinite ease-in-out;
   pointer-events: none;
@@ -423,15 +429,9 @@ a:hover {
 }
 
 @keyframes shimmer {
-  0% {
-    left: -120%;
-  }
-  60% {
-    left: 100%;
-  }
-  100% {
-    left: 100%;
-  }
+  0% { background-position: -100% 0; }
+  60% { background-position: 200% 0; }
+  100% { background-position: 200% 0; }
 }
 
 /* ===== SECTIONS ===== */
@@ -570,12 +570,113 @@ a:hover {
   display: block;
 }
 
-/* ===== TESTIMONIALS ===== */
+/* ===== TESTIMONIALS CAROUSEL ===== */
 .testimonial-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
 }
+.testimonial-carousel {
+  position: relative;
+  max-width: 860px;
+  margin: 0 auto;
+}
+.testimonial-carousel__window {
+  overflow: hidden;
+  border-radius: var(--radius);
+}
+.testimonial-carousel__track {
+  display: flex;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+.testimonial-carousel__track > * {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+.testimonial-carousel__controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+.testimonial-carousel__button {
+  appearance: none;
+  border: 2px solid var(--navy);
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--navy);
+  padding: 0.55rem 1.25rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.testimonial-carousel__button:hover {
+  background: var(--navy);
+  color: var(--cream);
+}
+.testimonial-carousel__indicators {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+.testimonial-carousel__indicator {
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(24, 58, 120, 0.25);
+  cursor: pointer;
+  transition: var(--transition);
+}
+.testimonial-carousel__indicator[aria-selected="true"] {
+  background: var(--navy);
+  transform: scale(1.15);
+}
+.testimonial-carousel__indicator:focus-visible {
+  outline: 3px solid var(--bright-blue);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .testimonial-carousel__track {
+    transition: none;
+  }
+  .service-card::before,
+  .support-item::before,
+  .stat-card::before,
+  .testimonial-card::before,
+  .booking-form::before {
+    animation: none;
+  }
+  .service-card,
+  .support-item,
+  .stat-card,
+  .testimonial-card,
+  .booking-form,
+  .btn,
+  .testimonial-carousel__button,
+  .testimonial-carousel__indicator,
+  .footer .socials a,
+  .nav-links a::after {
+    transition: none;
+  }
+  .service-card:hover,
+  .support-item:hover,
+  .stat-card:hover,
+  .testimonial-card:hover,
+  .booking-form:hover {
+    transform: none;
+  }
+}
+
+/* ===== TESTIMONIALS ===== */
 .testimonial-card {
   background: rgba(255, 255, 255, 0.35);
   backdrop-filter: blur(8px);
@@ -936,30 +1037,43 @@ a:hover {
 }
 @media (max-width: 768px) {
   .hero {
-    background-attachment: scroll;
+    padding: 4rem 0;
   }
-  .hamburger {
-    display: flex;
+  .section {
+    padding: 3.5rem 0;
   }
-  .nav-links {
-    display: none;
-    flex-direction: column;
-    position: absolute;
-    top: 74px;
-    left: 0;
-    right: 0;
-    background: var(--cream);
-    padding: 2rem;
-    gap: 1.25rem;
-    align-items: center;
-    box-shadow: var(--shadow-lg);
+  .btn {
+    min-height: 48px;
+    padding: 0.85rem 2rem;
   }
-  .nav-links.open {
-    display: flex;
+  .form-submit {
+    min-height: 48px;
   }
-  .services-grid,
-  .steps {
+  .testimonial-carousel__button {
+    padding: 0.75rem 1.5rem;
+    min-height: 44px;
+  }
+  .testimonial-carousel__indicator {
+    width: 16px;
+    height: 16px;
+    padding: 8px;
+    box-sizing: content-box;
+  }
+  .faq-question {
+    padding: 1rem 0;
+    font-size: 1rem;
+  }
+  .nav-links a {
+    padding: 0.75rem 0;
+    width: 100%;
+    text-align: center;
+    font-size: 1.1rem;
+  }
+  .services-grid {
     grid-template-columns: 1fr;
+  }
+  .steps {
+    grid-template-columns: 1fr 1fr;
   }
   .support-grid {
     grid-template-columns: 1fr;
@@ -990,11 +1104,30 @@ a:hover {
     flex-direction: column;
     align-items: center;
   }
+  .hero .cta-group .btn {
+    width: 100%;
+    max-width: 300px;
+  }
   .booking-form {
-    padding: 1rem;
+    padding: 1.25rem;
   }
   .founder-image {
     max-width: 280px;
+  }
+  .hero-image .card {
+    padding: 1.5rem;
+  }
+  .hero-image .card .big-icon {
+    font-size: 3rem;
+  }
+  .hero-image .card .card-title {
+    font-size: 1.2rem;
+  }
+  .steps {
+    grid-template-columns: 1fr;
+  }
+  .stat-card .number {
+    font-size: 2.2rem;
   }
 }
 
