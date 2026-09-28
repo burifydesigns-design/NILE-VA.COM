@@ -222,7 +222,11 @@ a:hover {
   cursor: pointer;
   background: none;
   border: none;
-  padding: 5px;
+  padding: 10px;
+  width: 44px;
+  height: 44px;
+  justify-content: center;
+  align-items: center;
 }
 .hamburger span {
   width: 26px;
@@ -1033,30 +1037,43 @@ a:hover {
 }
 @media (max-width: 768px) {
   .hero {
-    background-attachment: scroll;
+    padding: 4rem 0;
   }
-  .hamburger {
-    display: flex;
+  .section {
+    padding: 3.5rem 0;
   }
-  .nav-links {
-    display: none;
-    flex-direction: column;
-    position: absolute;
-    top: 74px;
-    left: 0;
-    right: 0;
-    background: var(--cream);
-    padding: 2rem;
-    gap: 1.25rem;
-    align-items: center;
-    box-shadow: var(--shadow-lg);
+  .btn {
+    min-height: 48px;
+    padding: 0.85rem 2rem;
   }
-  .nav-links.open {
-    display: flex;
+  .form-submit {
+    min-height: 48px;
   }
-  .services-grid,
-  .steps {
+  .testimonial-carousel__button {
+    padding: 0.75rem 1.5rem;
+    min-height: 44px;
+  }
+  .testimonial-carousel__indicator {
+    width: 16px;
+    height: 16px;
+    padding: 8px;
+    box-sizing: content-box;
+  }
+  .faq-question {
+    padding: 1rem 0;
+    font-size: 1rem;
+  }
+  .nav-links a {
+    padding: 0.75rem 0;
+    width: 100%;
+    text-align: center;
+    font-size: 1.1rem;
+  }
+  .services-grid {
     grid-template-columns: 1fr;
+  }
+  .steps {
+    grid-template-columns: 1fr 1fr;
   }
   .support-grid {
     grid-template-columns: 1fr;
@@ -1087,11 +1104,30 @@ a:hover {
     flex-direction: column;
     align-items: center;
   }
+  .hero .cta-group .btn {
+    width: 100%;
+    max-width: 300px;
+  }
   .booking-form {
-    padding: 1rem;
+    padding: 1.25rem;
   }
   .founder-image {
     max-width: 280px;
+  }
+  .hero-image .card {
+    padding: 1.5rem;
+  }
+  .hero-image .card .big-icon {
+    font-size: 3rem;
+  }
+  .hero-image .card .card-title {
+    font-size: 1.2rem;
+  }
+  .steps {
+    grid-template-columns: 1fr;
+  }
+  .stat-card .number {
+    font-size: 2.2rem;
   }
 }
 
