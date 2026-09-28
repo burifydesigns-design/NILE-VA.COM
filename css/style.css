@@ -5,9 +5,9 @@
   box-sizing: border-box;
 }
 :root {
-  --cream: #fff4df;
-  --gold: #D4AF37;
-  --navy: #183A78;
+  --cream: #FAF8F1;
+  --gold: #D4B574;
+  --navy: #0D2D56;
   --bright-blue: #4B8FFF;
   --radius: 16px;
   --shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
@@ -1027,10 +1027,10 @@ a:hover {
   .steps {
     grid-template-columns: 1fr 1fr;
   }
-  .founder-image {
-    max-width: 400px;
-    margin: 0 auto;
-  }
+.founder-image {
+  max-width: 400px;
+  margin: 0 auto;
+}
   .footer-grid {
     grid-template-columns: 1fr 1fr;
   }
