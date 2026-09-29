@@ -2,7 +2,7 @@
   'use strict';
 
   const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyCSjWkmKSzR5AKyRZyGi7H2Ak895l4DfjG8lOFvBCTktV20endrwWbV3QhnuSLlp4zqA/exec';
-  const CALENDLY_URL = 'https://calendly.com/nilevaservices/30min';
+  const CALENDLY_URL = 'https://calendly.com/catevirtualassistant/30min';
   const form = document.getElementById('booking-form');
   const nameInput = document.getElementById('prefill-name');
   const emailInput = document.getElementById('prefill-email');
