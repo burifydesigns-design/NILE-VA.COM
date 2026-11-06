@@ -34,7 +34,9 @@
     const url = new URL(CALENDLY_URL);
     url.searchParams.set('name', name);
     url.searchParams.set('email', email);
-    return window.open(url.toString(), '_blank', 'noopener,noreferrer');
+    // Do not use the return value of window.open() to detect popup blocking:
+    // browsers commonly return null when noopener is requested, even on success.
+    window.open(url.toString(), '_blank', 'noopener,noreferrer');
   }
 
   async function sendLead(data) {
@@ -109,7 +111,6 @@
     let autoplayTimer = null;
     let isTransitioning = false;
     const INTERVAL = 5000;
-
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
     function goTo(index, resetAutoplay = true) {
@@ -143,6 +144,8 @@
 
     function resetAutoplayTimer() {
       window.clearInterval(autoplayTimer);
+      autoplayTimer = null;
+      if (prefersReducedMotion.matches || document.hidden) return;
       autoplayTimer = window.setInterval(next, INTERVAL);
     }
 
@@ -160,6 +163,13 @@
     carousel.addEventListener('mouseleave', resetAutoplayTimer);
     carousel.addEventListener('focusin', stopAutoplay);
     carousel.addEventListener('focusout', resetAutoplayTimer);
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stopAutoplay();
+      else resetAutoplayTimer();
+    });
+    if (typeof prefersReducedMotion.addEventListener === 'function') {
+      prefersReducedMotion.addEventListener('change', resetAutoplayTimer);
+    }
 
     let startX = 0;
     let isSwiping = false;
@@ -196,8 +206,7 @@
 
       // Honeypot check - if filled, it's likely a bot
       if (websiteInput.value.trim()) {
-        // Silently succeed without actually submitting
-        showStatus('Your booking page is open. We sent your inquiry to our booking team.', 'success');
+        // Silently ignore automated submissions without disclosing the honeypot.
         form.reset();
         return;
       }
@@ -218,14 +227,13 @@
         return;
       }
       setSubmitting(true);
-      const bookingWindow = openBooking(name, email);
-      if (!bookingWindow) showStatus('Your browser blocked the booking tab. Please allow pop-ups and try again.', 'error');
+      openBooking(name, email);
       try {
         await sendLead({ name, email, timestamp: new Date().toISOString(), source: 'NILE VA Services website' });
-        showStatus(bookingWindow ? 'Your booking page is open. We sent your inquiry to our booking team.' : 'We sent your inquiry to our booking team.', 'success');
+        showStatus('We attempted to send your inquiry. The booking page should open in a new tab, but this form cannot verify delivery. If you do not hear back, email info@nile-va.com.', 'success');
         form.reset();
       } catch (error) {
-        showStatus(bookingWindow ? 'Your booking page is open, but we could not send your inquiry. Please email info@nile-va.com.' : 'We could not send your inquiry. Please email info@nile-va.com.', 'error');
+        showStatus('Your booking page should open in a new tab, but we could not send your inquiry. Please email info@nile-va.com.', 'error');
       } finally {
         setSubmitting(false);
       }
