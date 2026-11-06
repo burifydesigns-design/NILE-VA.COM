@@ -1185,3 +1185,29 @@ a:hover {
     margin: 0 auto;
   }
 }
+
+
+/* Spam-trap field: hidden without inline styles so the site's CSP can stay strict. */
+.honeypot {
+  position: absolute !important;
+  left: -10000px !important;
+  top: auto !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+}
+
+/* Respect system motion preferences for smooth scrolling and animated UI. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
